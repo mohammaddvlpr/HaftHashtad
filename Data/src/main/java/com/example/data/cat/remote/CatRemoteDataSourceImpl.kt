@@ -8,12 +8,10 @@ import javax.inject.Inject
 class CatRemoteDataSourceImpl @Inject constructor(private val catService: CatService) :
     CatRemoteDataSource {
     override suspend fun getCats(page: Int): Result<List<CatApiModel>> {
-        return apiCall(call = { catService.getCats(page) },
-            map = { it })
+        return apiCall { catService.getCats(page) }
     }
 
     override suspend fun getCatById(id: String): Result<CatDetailApiModel> {
-        return apiCall(call = { catService.getCatDetailById(id) },
-            map = { it })
+        return apiCall { catService.getCatDetailById(id) }
     }
 }

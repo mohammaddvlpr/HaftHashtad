@@ -1,8 +1,8 @@
 package com.example.data
 
-inline fun <T : Any, M : Any> apiCall(call: () -> T, map: (T) -> M): Result<M> {
+inline fun <T : Any> apiCall(call: () -> T): Result<T> {
     return try {
-        Result.success(map(call()))
+        Result.success(call())
 
     } catch (e: Exception) {
         e.printStackTrace()
