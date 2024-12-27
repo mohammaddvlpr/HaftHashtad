@@ -1,6 +1,3 @@
 package com.example.hafthashtad.navigation
 
-enum class Screens  {
-    HOME,
-    DETAIL
-}
+const val ID = "id"
