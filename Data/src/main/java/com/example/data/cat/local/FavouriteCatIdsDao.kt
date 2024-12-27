@@ -18,4 +18,8 @@ interface FavouriteCatIdsDao {
     @Query("SELECT * FROM favourite_cat_id_entity")
     suspend fun getAllFavouritesCatIds(): List<FavouriteCatIdEntity>
 
+    @Query("SELECT COUNT(*) > 0 FROM favourite_cat_id_entity WHERE id = :id")
+    suspend fun isFavourite(id:String): Boolean
+
+
 }
