@@ -83,8 +83,8 @@ fun HomeScreenContent(
             TopAppBar(
                 title = { Text(text = stringResource(id = R.string.home)) },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.Red,
-                    titleContentColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary
                 )
             )
         }) {
