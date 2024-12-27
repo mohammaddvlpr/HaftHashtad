@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.example.data.cat.local.entity.FavouriteCatIdEntity
 
 @Dao
-interface FavouriteCatIdDao {
+interface FavouriteCatIdsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCatIdEntity(item: FavouriteCatIdEntity)
