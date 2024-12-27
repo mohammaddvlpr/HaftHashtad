@@ -1,4 +1,4 @@
-package come.example.hafthashtad.ui.theme
+package com.example.hafthashtad.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

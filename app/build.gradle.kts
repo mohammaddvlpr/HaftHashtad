@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "come.example.hafthashtad"
+    namespace = "com.example.hafthashtad"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "come.example.hafthashtad"
+        applicationId = "com.example.hafthashtad"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

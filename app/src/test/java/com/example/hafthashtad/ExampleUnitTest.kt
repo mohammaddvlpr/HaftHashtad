@@ -1,4 +1,4 @@
-package come.example.hafthashtad
+package com.example.hafthashtad
 
 import org.junit.Test
 
