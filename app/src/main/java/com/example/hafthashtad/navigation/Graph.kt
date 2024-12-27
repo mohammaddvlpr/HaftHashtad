@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.hafthashtad.navigation.ID
+import com.example.hafthashtad.navigation.NavActions
 import com.example.hafthashtad.navigation.NavigationItem
 import com.example.hafthashtad.screen.detail.CatDetailScreen
 import com.example.hafthashtad.screen.home.HomeScreen
@@ -19,6 +20,7 @@ fun AppNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     startDestination: String = NavigationItem.Home.route,
+    actions: NavActions = NavActions(navController)
 ) {
 
     NavHost(
@@ -26,20 +28,21 @@ fun AppNavGraph(
         navController = navController,
         startDestination = startDestination
     ) {
-        homeScreen(this)
-        catDetailScreen(this)
+        homeScreen(this, actions)
+        catDetailScreen(this, actions)
     }
 
 }
 
 fun homeScreen(
     builder: NavGraphBuilder,
+    actions: NavActions,
 ) {
     builder.apply {
         composable(
             route = NavigationItem.Home.route,
         ) {
-            HomeScreen(onNavigateToDetail = {})
+            HomeScreen(onNavigateToDetail = { actions.navigateToNewsDetail(it) })
 
         }
     }
@@ -47,6 +50,7 @@ fun homeScreen(
 
 fun catDetailScreen(
     builder: NavGraphBuilder,
+    actions: NavActions,
 
     ) {
     builder.apply {
@@ -56,7 +60,7 @@ fun catDetailScreen(
                 type = NavType.StringType
             })
         ) {
-            CatDetailScreen(onNavigateToParent = { })
+            CatDetailScreen(onNavigateToParent = { actions.navigatesToHome() })
 
         }
     }
