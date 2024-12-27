@@ -4,6 +4,7 @@ package com.example.hafthashtad.screen.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,16 +12,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -34,14 +38,19 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.hafthashtad.R
 import com.example.hafthashtad.screen.home.models.CatUiModel
+import kotlinx.coroutines.flow.flow
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -83,8 +92,58 @@ fun HomeScreenContent(
                     )
             }
 
+            pagingItems.apply {
+                when {
+                    loadState.refresh is LoadState.Loading -> {
+                        item { Loading(modifier = Modifier.fillParentMaxSize()) }
+                    }
+
+                    loadState.refresh is LoadState.Error -> {
+                        val error = pagingItems.loadState.refresh as LoadState.Error
+                        item {
+                            Error(
+                                modifier = Modifier.fillParentMaxSize(),
+                                message = error.error.localizedMessage
+                            ) { retry() }
+                        }
+                    }
+
+                    loadState.append is LoadState.Loading -> {
+                        item { LoadingNextPageItem(modifier = Modifier) }
+                    }
+
+                    loadState.append is LoadState.Error -> {
+                        val error = pagingItems.loadState.append as LoadState.Error
+                        item {
+                            Error(
+                                modifier = Modifier,
+                                message = error.error.localizedMessage
+                            ) { retry() }
+                        }
+                    }
+                }
+            }
         }
+
+
     }
+}
+
+@Preview
+@Composable
+fun HomeScreenContentPreview() {
+    val fakeCatUiModel = CatUiModel(
+        id = "0",
+        name = "Sample name",
+        imageUrl = "",
+        isFavourite = false
+    )
+
+    HomeScreenContent(
+        onNavigateToDetail = { },
+        pagingItems = flow { emit(PagingData.from(listOf(fakeCatUiModel))) }.collectAsLazyPagingItems(),
+        onFavouriteClick = {}
+    )
 }
 
 
@@ -142,6 +201,56 @@ fun CatItem(
             }
 
 
+        }
+    }
+}
+
+@Composable
+fun Loading(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = stringResource(id = R.string.loading_message),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+        CircularProgressIndicator(Modifier.padding(top = 10.dp))
+    }
+}
+
+@Composable
+fun LoadingNextPageItem(modifier: Modifier) {
+    CircularProgressIndicator(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(10.dp)
+            .wrapContentWidth(Alignment.CenterHorizontally)
+    )
+}
+
+@Composable
+fun Error(
+    modifier: Modifier = Modifier,
+    message: String?,
+    onClickRetry: () -> Unit
+) {
+    Row(
+        modifier = modifier.padding(10.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = message ?: stringResource(id = R.string.unknown_error_message),
+            color = MaterialTheme.colorScheme.error,
+            modifier = Modifier.weight(1f),
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
+        )
+        OutlinedButton(onClick = onClickRetry) {
+            Text(text = stringResource(id = R.string.retry))
         }
     }
 }

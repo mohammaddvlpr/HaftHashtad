@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">HaftHashtad</string>
     <string name="home">Home</string>
+    <string name="loading_message">Loading, please wait</string>
+    <string name="retry">Retry</string>
+    <string name="unknown_error_message">Unknown error, try again</string>
 </resources>
