@@ -18,6 +18,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -25,12 +27,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.hafthashtad.R
 import com.example.hafthashtad.screen.detail.models.CatDetailUiModel
 import com.example.hafthashtad.screen.detail.models.DetailScreenState
 
+@Composable
+fun CatDetailScreen(
+    viewModel: DetailScreenViewModel = hiltViewModel(),
+    onNavigateToParent: () -> Unit
+) {
+    val state by viewModel.state.collectAsState()
+    CatDetailScreenContent(state = state, onNavigateToParent = onNavigateToParent)
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
