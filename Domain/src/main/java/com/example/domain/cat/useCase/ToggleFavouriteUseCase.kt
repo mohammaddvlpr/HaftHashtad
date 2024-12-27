@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class ToggleFavouriteUseCase @Inject constructor(private val catRepository: CatRepository) {
 
-    suspend fun invoke(id: String) {
+    suspend operator fun invoke(id: String) {
         return catRepository.toggleFavourite(id)
     }
 }
