@@ -16,6 +16,8 @@ class CatLocalDataSourceImpl @Inject constructor(private val favouriteCatIdsDao:
     override suspend fun toggleFavourite(id: String) {
         if (favouriteCatIdsDao.isFavourite(id))
             favouriteCatIdsDao.deleteCatIdEntity(id)
+        else
+            favouriteCatIdsDao.insertCatIdEntity(FavouriteCatIdEntity(id))
     }
 
 
