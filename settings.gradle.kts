@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "HaftHashtad"
 include(":app")
- 
+include(":Domain")
