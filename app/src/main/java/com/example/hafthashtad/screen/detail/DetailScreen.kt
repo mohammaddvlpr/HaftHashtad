@@ -1,6 +1,13 @@
 package com.example.hafthashtad.screen.detail
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -12,16 +19,24 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.hafthashtad.R
 import com.example.hafthashtad.screen.detail.models.CatDetailUiModel
+import com.example.hafthashtad.screen.detail.models.DetailScreenState
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CatDetailScreenContent(
     modifier: Modifier = Modifier,
+    state: DetailScreenState,
     onNavigateToParent: () -> Unit
 ) {
     Scaffold(
@@ -44,6 +59,41 @@ fun CatDetailScreenContent(
             )
         },
     ) {
+        Column(
+            Modifier
+                .padding(it)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+
+            AsyncImage(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp),
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(state.newsDetailUiModel.imageUrl)
+                    .crossfade(true)
+                    .build(),
+                placeholder = painterResource(id = R.drawable.img_place_holder),
+                error = painterResource(id = R.drawable.img_place_holder),
+                contentScale = ContentScale.Crop,
+                contentDescription = "Content Image"
+            )
+
+            Text(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                text = state.newsDetailUiModel.name,
+                style = MaterialTheme.typography.titleLarge
+            )
+
+            Text(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                text = state.newsDetailUiModel.description,
+                style = MaterialTheme.typography.bodyLarge
+            )
+
+        }
+
     }
 }
 
@@ -51,7 +101,8 @@ fun CatDetailScreenContent(
 @Composable
 fun CatDetailContentPreview() {
     CatDetailScreenContent(
-        onNavigateToParent = {}
+        onNavigateToParent = {},
+        state = DetailScreenState(fakeCatDetailUiModel)
     )
 }
 
