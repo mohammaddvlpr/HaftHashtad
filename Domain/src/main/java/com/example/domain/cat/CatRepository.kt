@@ -14,5 +14,6 @@ interface CatRepository {
 
     suspend fun toggleFavourite(id:String)
 
+    fun getFavouriteCatIdsFlow(): Flow<List<String>>
 
 }
