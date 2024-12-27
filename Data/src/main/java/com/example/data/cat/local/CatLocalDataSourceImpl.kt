@@ -21,7 +21,7 @@ class CatLocalDataSourceImpl @Inject constructor(private val favouriteCatIdsDao:
             favouriteCatIdsDao.insertCatIdEntity(FavouriteCatIdEntity(id))
     }
 
-    override suspend fun getFavouriteCatIdsFlow(): Flow<List<String>> {
+    override fun getFavouriteCatIdsFlow(): Flow<List<String>> {
         return favouriteCatIdsDao.getAllFavouritesCatIdsFlow()
     }
 
