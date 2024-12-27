@@ -21,6 +21,10 @@ class DetailScreenViewModel @Inject constructor(
     private val detailScreenMapper: DetailScreenMapper
 ) :
     ViewModel() {
+    fun onFavouriteClick() {
+        TODO("Not yet implemented")
+    }
+
     private val _state = MutableStateFlow(DetailScreenState())
     val state: StateFlow<DetailScreenState> = _state
 
@@ -35,7 +39,7 @@ class DetailScreenViewModel @Inject constructor(
                 if (resultValue != null)
                     _state.update {
                         it.copy(
-                            newsDetailUiModel = detailScreenMapper.mapNewModelToNewsDetailUiModel(
+                            catDetailUiModel = detailScreenMapper.mapNewModelToNewsDetailUiModel(
                                 resultValue
                             )
                         )

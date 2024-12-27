@@ -10,8 +10,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -20,7 +23,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -40,7 +45,11 @@ fun CatDetailScreen(
     onNavigateToParent: () -> Unit
 ) {
     val state by viewModel.state.collectAsState()
-    CatDetailScreenContent(state = state, onNavigateToParent = onNavigateToParent)
+    CatDetailScreenContent(
+        state = state,
+        onNavigateToParent = onNavigateToParent,
+        onFavouriteClick = viewModel::onFavouriteClick
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,7 +57,8 @@ fun CatDetailScreen(
 fun CatDetailScreenContent(
     modifier: Modifier = Modifier,
     state: DetailScreenState,
-    onNavigateToParent: () -> Unit
+    onNavigateToParent: () -> Unit,
+    onFavouriteClick: () -> Unit
 ) {
     Scaffold(
         modifier = modifier,
@@ -66,6 +76,22 @@ fun CatDetailScreenContent(
                         imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
                         contentDescription = "Navigation icon",
                     )
+                },
+                actions = {
+                    IconButton(
+                        modifier = Modifier.align(Alignment.Bottom),
+                        onClick = onFavouriteClick
+                    ) {
+                        Icon(
+                            imageVector = if (state.catDetailUiModel.isFavourite)
+                                Icons.Default.Favorite
+                            else
+                                Icons.Default.FavoriteBorder,
+                            contentDescription = null,
+                            tint = Color.Red
+                        )
+                    }
+
                 }
             )
         },
@@ -82,7 +108,7 @@ fun CatDetailScreenContent(
                     .fillMaxWidth()
                     .height(200.dp),
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(state.newsDetailUiModel.imageUrl)
+                    .data(state.catDetailUiModel.imageUrl)
                     .crossfade(true)
                     .build(),
                 placeholder = painterResource(id = R.drawable.img_place_holder),
@@ -93,13 +119,13 @@ fun CatDetailScreenContent(
 
             Text(
                 modifier = Modifier.padding(horizontal = 16.dp),
-                text = state.newsDetailUiModel.name,
+                text = state.catDetailUiModel.name,
                 style = MaterialTheme.typography.titleLarge
             )
 
             Text(
                 modifier = Modifier.padding(horizontal = 16.dp),
-                text = state.newsDetailUiModel.description,
+                text = state.catDetailUiModel.description,
                 style = MaterialTheme.typography.bodyLarge
             )
 
@@ -112,8 +138,9 @@ fun CatDetailScreenContent(
 @Composable
 fun CatDetailContentPreview() {
     CatDetailScreenContent(
+        state = DetailScreenState(fakeCatDetailUiModel),
         onNavigateToParent = {},
-        state = DetailScreenState(fakeCatDetailUiModel)
+        onFavouriteClick = {}
     )
 }
 
@@ -126,5 +153,6 @@ val fakeCatDetailUiModel = CatDetailUiModel(
             " style. You should typically choose one theme and use it across your " +
             "application for consistency. For example, you may want to use a property " +
             "or a typealias to refer to a specific theme, so it can be accessed in " +
-            "a semantically meaningful way from inside other composables."
+            "a semantically meaningful way from inside other composables.",
+    isFavourite = true
 )
