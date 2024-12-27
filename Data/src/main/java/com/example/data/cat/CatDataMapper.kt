@@ -20,7 +20,7 @@ class CatDataMapper @Inject constructor() {
                         id = id,
                         imageUrl = imageUrl,
                         isFavourite = favouriteIds.any { idEntity -> idEntity.id == id },
-                        name = breeds.first().name
+                        name = breeds.firstOrNull()?.name ?: "Name is unknown"
                     )
                 }
             }
