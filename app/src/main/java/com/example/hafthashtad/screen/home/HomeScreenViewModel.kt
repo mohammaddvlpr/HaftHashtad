@@ -16,8 +16,8 @@ class HomeScreenViewModel @Inject constructor(
     ViewModel() {
 
     val pagingFlow = getAllCatsPagingFlowUseCase().map { pagingData ->
-        pagingData.map { newsModel ->
-            homeScreenUiMapper.mapDomainToUi(newsModel)
+        pagingData.map { catModel ->
+            homeScreenUiMapper.mapDomainToUi(catModel)
         }
 
     }
