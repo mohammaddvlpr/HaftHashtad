@@ -1,6 +1,9 @@
 package com.example.hafthashtad.screen.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import androidx.paging.map
 import com.example.domain.cat.useCase.GetAllCatsPagingFlowUseCase
 import com.example.hafthashtad.screen.home.models.HomeScreenUiMapper
@@ -20,6 +23,11 @@ class HomeScreenViewModel @Inject constructor(
             homeScreenUiMapper.mapDomainToUi(catModel)
         }
 
+    }.cachedIn(viewModelScope)
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.i("*****", "onCleared: ")
     }
 
 
