@@ -1,5 +1,7 @@
 package com.example.hafthashtad.di
 
+import com.example.data.cat.local.CatLocalDataSource
+import com.example.data.cat.local.CatLocalDataSourceImpl
 import com.example.data.cat.remote.CatRemoteDataSource
 import com.example.data.cat.remote.CatRemoteDataSourceImpl
 import com.example.data.cat.remote.CatService
@@ -35,5 +37,8 @@ abstract class CatDataModule {
 
     @Binds
     abstract fun bindCatRemoteDataSource(impl: CatRemoteDataSourceImpl): CatRemoteDataSource
+
+    @Binds
+    abstract fun bindCatLocalDataSource(impl: CatLocalDataSourceImpl): CatLocalDataSource
 
 }
