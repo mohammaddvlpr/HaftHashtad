@@ -3,10 +3,10 @@ package com.example.data.cat.local
 import com.example.data.cat.local.entity.FavouriteCatIdEntity
 import javax.inject.Inject
 
-class CatLocalDataSourceImpl @Inject constructor() :
+class CatLocalDataSourceImpl @Inject constructor(private val favouriteCatIdsDao: FavouriteCatIdsDao) :
     CatLocalDataSource {
     override suspend fun getFavouriteCatIds(): List<FavouriteCatIdEntity> {
-        TODO("Not yet implemented")
+        return favouriteCatIdsDao.getAllFavouritesCatIds()
     }
 
 
