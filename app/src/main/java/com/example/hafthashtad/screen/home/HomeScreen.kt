@@ -30,6 +30,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -60,10 +62,13 @@ fun HomeScreen(
 ) {
     val pagingItems = viewModel.pagingFlow.collectAsLazyPagingItems()
 
+    val favouriteCatIds by viewModel.favouriteCatIdsFlow.collectAsState(initial = hashSetOf())
+
     HomeScreenContent(
         onNavigateToDetail = onNavigateToDetail,
         pagingItems = pagingItems,
-        onFavouriteClick = {}
+        onFavouriteClick = viewModel::onFavouriteClick,
+        favouriteCatIds = favouriteCatIds
 
     )
 }
@@ -75,6 +80,7 @@ fun HomeScreenContent(
     onNavigateToDetail: (id: String) -> Unit,
     pagingItems: LazyPagingItems<CatUiModel>,
     onFavouriteClick: (catUiModel: CatUiModel) -> Unit,
+    favouriteCatIds: HashSet<String>,
 ) {
 
 
@@ -103,7 +109,8 @@ fun HomeScreenContent(
                         modifier = Modifier.fillParentMaxWidth(),
                         onClick = { onNavigateToDetail(model.id) },
                         model = model,
-                        onFavouriteClick = onFavouriteClick
+                        onFavouriteClick = onFavouriteClick,
+                        isFavourite = favouriteCatIds.contains(model.id)
                     )
             }
 
@@ -157,7 +164,8 @@ fun HomeScreenContentPreview() {
     HomeScreenContent(
         onNavigateToDetail = { },
         pagingItems = flow { emit(PagingData.from(listOf(fakeCatUiModel))) }.collectAsLazyPagingItems(),
-        onFavouriteClick = {}
+        onFavouriteClick = {},
+        favouriteCatIds = hashSetOf()
     )
 }
 
@@ -167,7 +175,8 @@ fun CatItem(
     modifier: Modifier = Modifier,
     onClick: (CatUiModel) -> Unit,
     model: CatUiModel,
-    onFavouriteClick: (model: CatUiModel) -> Unit
+    onFavouriteClick: (model: CatUiModel) -> Unit,
+    isFavourite: Boolean
 ) {
     Card(
         modifier = modifier,
@@ -206,7 +215,7 @@ fun CatItem(
                 modifier = Modifier.align(Alignment.Bottom),
                 onClick = { onFavouriteClick(model) }) {
                 Icon(
-                    imageVector = if (model.isFavourite)
+                    imageVector = if (isFavourite)
                         Icons.Default.Favorite
                     else
                         Icons.Default.FavoriteBorder,
@@ -288,7 +297,8 @@ fun CatItemPreview() {
                 imageUrl = "https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg",
                 isFavourite = true
             ),
-            onFavouriteClick = {}
+            onFavouriteClick = {},
+            isFavourite = false
         )
     }
 }
