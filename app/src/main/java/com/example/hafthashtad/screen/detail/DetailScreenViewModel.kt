@@ -47,7 +47,7 @@ class DetailScreenViewModel @Inject constructor(
                 if (resultValue != null)
                     _state.update {
                         it.copy(
-                            catDetailUiModel = detailScreenMapper.mapNewModelToNewsDetailUiModel(
+                            catDetailUiModel = detailScreenMapper.mapCatModelToCatDetailUiModel(
                                 resultValue
                             )
                         )

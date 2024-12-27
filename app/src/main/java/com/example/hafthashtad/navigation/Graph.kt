@@ -42,7 +42,7 @@ fun homeScreen(
         composable(
             route = NavigationItem.Home.route,
         ) {
-            HomeScreen(onNavigateToDetail = { actions.navigateToNewsDetail(it) })
+            HomeScreen(onNavigateToDetail = { actions.navigateToCatDetail(it) })
 
         }
     }

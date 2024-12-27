@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class DetailScreenMapper @Inject constructor() {
 
-    fun mapNewModelToNewsDetailUiModel(model: CatDetailModel) = with(model) {
+    fun mapCatModelToCatDetailUiModel(model: CatDetailModel) = with(model) {
         CatDetailUiModel(id, name, imageUrl, description, isFavourite)
     }
 }

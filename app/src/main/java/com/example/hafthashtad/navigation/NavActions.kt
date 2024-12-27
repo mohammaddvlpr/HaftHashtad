@@ -4,7 +4,7 @@ import androidx.navigation.NavController
 
 class NavActions(private val navController: NavController) {
 
-    fun navigateToNewsDetail(id: String) {
+    fun navigateToCatDetail(id: String) {
         navController.navigate("${NavigationItem.Detail.route}?$ID=$id")
     }
 
