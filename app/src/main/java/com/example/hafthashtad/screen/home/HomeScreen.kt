@@ -49,7 +49,7 @@ fun CatItem(modifier: Modifier = Modifier, onClick: (CatUiModel) -> Unit, model:
                     .size(96.dp),
                 contentScale = ContentScale.Crop,
 
-                contentDescription = "News Image"
+                contentDescription = "Cat Image"
             )
 
             Text(

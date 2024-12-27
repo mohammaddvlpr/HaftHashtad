@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class CatRepositoryImpl @Inject constructor(
-    private val newsRemoteDataSource: CatRemoteDataSource,
-    private val newsLocalDataSource: CatLocalDataSource,
+    private val catRemoteDataSource: CatRemoteDataSource,
+    private val catLocalDataSource: CatLocalDataSource,
     private val mapper: CatDataMapper,
 ) : CatRepository {
 
@@ -24,7 +24,7 @@ class CatRepositoryImpl @Inject constructor(
                 initialLoadSize = PAGE_SIZE
             ),
         ) {
-            CatPagingSource(newsRemoteDataSource, newsLocalDataSource, mapper)
+            CatPagingSource(catRemoteDataSource, catLocalDataSource, mapper)
         }.flow
 
     }
