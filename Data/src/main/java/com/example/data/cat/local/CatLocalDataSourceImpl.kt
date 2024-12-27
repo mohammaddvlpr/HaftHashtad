@@ -1,6 +1,7 @@
 package com.example.data.cat.local
 
 import com.example.data.cat.local.entity.FavouriteCatIdEntity
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class CatLocalDataSourceImpl @Inject constructor(private val favouriteCatIdsDao: FavouriteCatIdsDao) :
@@ -18,6 +19,10 @@ class CatLocalDataSourceImpl @Inject constructor(private val favouriteCatIdsDao:
             favouriteCatIdsDao.deleteCatIdEntity(id)
         else
             favouriteCatIdsDao.insertCatIdEntity(FavouriteCatIdEntity(id))
+    }
+
+    override suspend fun getFavouriteCatIdsFlow(): Flow<List<String>> {
+        return favouriteCatIdsDao.getAllFavouritesCatIdsFlow()
     }
 
 
