@@ -6,6 +6,6 @@ import javax.inject.Inject
 class HomeScreenUiMapper @Inject constructor() {
 
     fun mapDomainToUi(model: CatModel) = with(model) {
-        CatUiModel(id, name, imageUrl, isFavourite)
+        CatUiModel(id, name, imageUrl)
     }
 }

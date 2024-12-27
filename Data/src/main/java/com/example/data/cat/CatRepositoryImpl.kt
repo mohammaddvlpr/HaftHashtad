@@ -25,7 +25,7 @@ class CatRepositoryImpl @Inject constructor(
                 initialLoadSize = PAGE_SIZE
             ),
         ) {
-            CatPagingSource(catRemoteDataSource, catLocalDataSource, mapper)
+            CatPagingSource(catRemoteDataSource, mapper)
         }.flow
 
     }

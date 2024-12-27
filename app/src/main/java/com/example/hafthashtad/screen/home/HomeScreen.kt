@@ -158,7 +158,6 @@ fun HomeScreenContentPreview() {
         id = "0",
         name = "Sample name",
         imageUrl = "",
-        isFavourite = false
     )
 
     HomeScreenContent(
@@ -295,7 +294,6 @@ fun CatItemPreview() {
                 id = "0",
                 name = "Sample name",
                 imageUrl = "https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg",
-                isFavourite = true
             ),
             onFavouriteClick = {},
             isFavourite = false

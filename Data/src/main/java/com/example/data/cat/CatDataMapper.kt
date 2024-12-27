@@ -1,6 +1,5 @@
 package com.example.data.cat
 
-import com.example.data.cat.local.entity.FavouriteCatIdEntity
 import com.example.data.cat.remote.models.CatApiModel
 import com.example.data.cat.remote.models.CatDetailApiModel
 import com.example.domain.cat.models.CatDetailModel
@@ -12,8 +11,7 @@ import javax.inject.Inject
 class CatDataMapper @Inject constructor() {
 
     suspend fun mapApiModelsToDomain(
-        models: List<CatApiModel>,
-        favouriteIds: List<FavouriteCatIdEntity>
+        models: List<CatApiModel>
     ): List<CatModel> {
         return withContext(Dispatchers.Default) {
             models.map {
@@ -21,7 +19,6 @@ class CatDataMapper @Inject constructor() {
                     CatModel(
                         id = id,
                         imageUrl = imageUrl,
-                        isFavourite = favouriteIds.any { idEntity -> idEntity.id == id },
                         name = breeds.firstOrNull()?.name ?: "Name is unknown"
                     )
                 }
