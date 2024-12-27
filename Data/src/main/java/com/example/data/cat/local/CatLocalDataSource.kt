@@ -11,7 +11,7 @@ interface CatLocalDataSource {
 
     suspend fun toggleFavourite(id: String)
 
-    suspend fun getFavouriteCatIdsFlow(): Flow<List<String>>
+    fun getFavouriteCatIdsFlow(): Flow<List<String>>
 
 
 }
