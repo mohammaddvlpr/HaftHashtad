@@ -40,4 +40,8 @@ class CatRepositoryImpl @Inject constructor(
     override suspend fun toggleFavourite(id: String) {
         catLocalDataSource.toggleFavourite(id)
     }
+
+    override fun getFavouriteCatIdsFlow(): Flow<List<String>> {
+        return catLocalDataSource.getFavouriteCatIdsFlow()
+    }
 }
