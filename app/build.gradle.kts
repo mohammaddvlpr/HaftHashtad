@@ -82,6 +82,16 @@ dependencies {
 //    room
     implementation(libs.room.runtime)
 
+//    paging
+    implementation(libs.paging)
+
+//    compose and paging
+    implementation(libs.paging.compose)
+
+//    loading image in compose
+    implementation(libs.coil.compose)
+
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
