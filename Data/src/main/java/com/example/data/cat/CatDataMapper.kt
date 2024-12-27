@@ -40,7 +40,7 @@ class CatDataMapper @Inject constructor() {
                     imageUrl = imageUrl,
                     isFavourite = isFavourite,
                     name = breeds.firstOrNull()?.name ?: "No information",
-                    description = breeds.firstOrNull()?.name ?: "No information"
+                    description = breeds.firstOrNull()?.description ?: "No information"
                 )
             }
         }
