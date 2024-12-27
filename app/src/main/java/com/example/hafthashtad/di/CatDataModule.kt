@@ -1,10 +1,12 @@
 package com.example.hafthashtad.di
 
+import com.example.data.cat.CatRepositoryImpl
 import com.example.data.cat.local.CatLocalDataSource
 import com.example.data.cat.local.CatLocalDataSourceImpl
 import com.example.data.cat.remote.CatRemoteDataSource
 import com.example.data.cat.remote.CatRemoteDataSourceImpl
 import com.example.data.cat.remote.CatService
+import com.example.domain.cat.CatRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -40,5 +42,8 @@ abstract class CatDataModule {
 
     @Binds
     abstract fun bindCatLocalDataSource(impl: CatLocalDataSourceImpl): CatLocalDataSource
+
+    @Binds
+    abstract fun bindCatRepository(impl: CatRepositoryImpl): CatRepository
 
 }

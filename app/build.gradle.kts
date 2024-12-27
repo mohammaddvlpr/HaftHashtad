@@ -67,6 +67,7 @@ dependencies {
 
     //    hilt
     implementation(libs.hilt.android)
+    implementation(project(":Domain"))
     ksp(libs.hilt.compiler)
     ksp(libs.androidx.hilt.compiler)
 
