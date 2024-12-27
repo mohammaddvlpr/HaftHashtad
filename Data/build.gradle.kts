@@ -35,6 +35,10 @@ android {
 
 dependencies {
 
+//    retrofit and gson
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
 }
