@@ -46,7 +46,11 @@ dependencies {
     //    room
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation(project(":Domain"))
     ksp(libs.room.compiler)
+
+    //    paging
+    implementation(libs.paging)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
