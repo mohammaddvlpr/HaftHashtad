@@ -8,4 +8,6 @@ interface CatLocalDataSource {
 
     suspend fun isFavourite(id:String):Boolean
 
+    suspend fun toggleFavourite(id: String)
+
 }
