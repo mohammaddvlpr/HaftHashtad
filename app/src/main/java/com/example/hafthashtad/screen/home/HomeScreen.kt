@@ -41,6 +41,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
@@ -52,6 +53,20 @@ import com.example.hafthashtad.R
 import com.example.hafthashtad.screen.home.models.CatUiModel
 import kotlinx.coroutines.flow.flow
 
+@Composable
+fun HomeScreen(
+    viewModel: HomeScreenViewModel = hiltViewModel(),
+    onNavigateToDetail: (id: String) -> Unit
+) {
+    val pagingItems = viewModel.pagingFlow.collectAsLazyPagingItems()
+
+    HomeScreenContent(
+        onNavigateToDetail = onNavigateToDetail,
+        pagingItems = pagingItems,
+        onFavouriteClick = {}
+
+    )
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
