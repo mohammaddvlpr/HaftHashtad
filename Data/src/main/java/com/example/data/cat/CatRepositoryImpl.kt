@@ -36,4 +36,8 @@ class CatRepositoryImpl @Inject constructor(
             catLocalDataSource.isFavourite(id)
         )
     }
+
+    override suspend fun toggleFavourite(id: String) {
+        catLocalDataSource.toggleFavourite(id)
+    }
 }

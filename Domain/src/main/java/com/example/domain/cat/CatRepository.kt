@@ -12,4 +12,7 @@ interface CatRepository {
     suspend fun getCatDetailById(id:String): Result<CatDetailModel>
 
 
+    suspend fun toggleFavourite(id:String)
+
+
 }
