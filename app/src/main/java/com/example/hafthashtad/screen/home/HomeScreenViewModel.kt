@@ -1,6 +1,5 @@
 package com.example.hafthashtad.screen.home
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
@@ -25,10 +24,6 @@ class HomeScreenViewModel @Inject constructor(
 
     }.cachedIn(viewModelScope)
 
-    override fun onCleared() {
-        super.onCleared()
-        Log.i("*****", "onCleared: ")
-    }
 
 
 
