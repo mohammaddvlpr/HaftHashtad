@@ -71,6 +71,11 @@ dependencies {
     //    hilt-compose
     implementation(libs.androidx.hilt.navigation.compose)
 
+    //    retrofit and okhttp
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.logging.interceptor)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
