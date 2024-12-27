@@ -58,7 +58,7 @@ fun CatDetailScreenContent(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                    navigationIconContentColor = MaterialTheme.colorScheme.primary
+                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary
                 ),
                 navigationIcon = {
                     Icon(
