@@ -9,5 +9,9 @@ class CatLocalDataSourceImpl @Inject constructor(private val favouriteCatIdsDao:
         return favouriteCatIdsDao.getAllFavouritesCatIds()
     }
 
+    override suspend fun isFavourite(id: String): Boolean {
+        return favouriteCatIdsDao.isFavourite(id)
+    }
+
 
 }
