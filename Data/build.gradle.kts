@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -42,6 +43,10 @@ dependencies {
 //    injection
     implementation(libs.javax.inject)
 
+    //    room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
